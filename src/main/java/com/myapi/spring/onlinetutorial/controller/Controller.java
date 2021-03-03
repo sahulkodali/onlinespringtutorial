@@ -3,6 +3,7 @@ package com.myapi.spring.onlinetutorial.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,12 +34,19 @@ public class Controller {
 
 	@GetMapping(path = "/getQuestionsFor/{topicName}")
 	public Questions getQuestionsByTopicName(@PathVariable String topicName) {
-		System.out.println(topicName);
 		Questions topic =  questionaire.findByTopic(topicName);
 		if(topic == null) {
 			throw new TopicNotFoundException(ResponseConstants.topic_notFound_exception);
 		}
 		return questionaire.findByTopic(topicName);
+	}
+	
+	@DeleteMapping(path = "/deleteQuestionsFor/{topicName}")
+	public void deleteQuestionsByTopicName(@PathVariable String topicName) {
+		Questions topic =  questionaire.deleteByTopic(topicName);
+		if(topic == null) {
+			throw new TopicNotFoundException(ResponseConstants.topic_notFound_exception);
+		}
 	}
 
 	@GetMapping(path = "/getAllQuestions")

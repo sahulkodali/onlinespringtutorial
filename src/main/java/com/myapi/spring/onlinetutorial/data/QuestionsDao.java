@@ -1,6 +1,7 @@
 package com.myapi.spring.onlinetutorial.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -31,6 +32,18 @@ public class QuestionsDao {
 		for (Questions interviewQuestions : questions) {
 			if (interviewQuestions.getTopicName().contentEquals(topicName)) {
 				return interviewQuestions;
+			}
+		}
+		return null;
+	}
+	
+	public Questions deleteByTopic(String topicName) {
+		Iterator<Questions> iterator = questions.iterator();
+		while(iterator.hasNext()) {
+			Questions queries = iterator.next();
+			if (queries.getTopicName().contentEquals(topicName)) {
+				iterator.remove();
+				return queries;
 			}
 		}
 		return null;
