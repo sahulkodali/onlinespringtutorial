@@ -29,32 +29,29 @@ public class QuestionsDao {
 
 	public Questions findByTopic(String topicName) {
 		for (Questions interviewQuestions : questions) {
-			if (!interviewQuestions.getTopicName().contentEquals(topicName)) {
+			if (interviewQuestions.getTopicName().contentEquals(topicName)) {
 				return interviewQuestions;
 			}
 		}
 		return null;
 	}
-	
+
 	public String uploadQuestions(Questions uploadedQuestion) {
-		
-		
+
 		for (Questions interviewQuestions : questions) {
 			if (interviewQuestions.getQuestion().contentEquals(uploadedQuestion.getQuestion())) {
-				isAnExistingQuestion =  true;
-			}
-			else {
+				isAnExistingQuestion = true;
+			} else {
 				isAnExistingQuestion = false;
 			}
 		}
-			if(isAnExistingQuestion) {
-				questions.add(uploadedQuestion);
-				response.append(ResponseConstants.upload_response_success + uploadedQuestion.getQuestion());
-				return response.toString();
-			}
-			else {
-				return ResponseConstants.already_existing_question;
-			}
+		if (isAnExistingQuestion) {
+			questions.add(uploadedQuestion);
+			response.append(ResponseConstants.upload_response_success + uploadedQuestion.getQuestion());
+			return response.toString();
+		} else {
+			return ResponseConstants.already_existing_question;
+		}
 	}
 
 }
